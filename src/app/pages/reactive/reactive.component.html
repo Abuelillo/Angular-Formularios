@@ -1,0 +1,120 @@
+<h4>Formularios <small> tipo </small>REACTIVOS</h4>
+<hr>
+<form autocomplete="off" [formGroup]="forma" (ngSubmit)="guardar()">
+
+    <div>
+
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Nombre</label>
+            <div class="col">
+
+                <input class="form-control" type="text" placeholder="Nombre" formControlName="nombre" [class.is-invalid]="validar('nombre')">
+                <small *ngIf="validar('nombre')">Ingrese 5 letras</small>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Apellido</label>
+            <div class="col">
+
+                <input class="form-control" type="text" placeholder="Apellido" formControlName="apellido" [class.is-invalid]="validar('apellido')">
+                <small *ngIf="validar('apellido')">Ingrese apellido</small>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Correo</label>
+        <div class="col">
+
+            <input class="form-control" type="email" placeholder="Correo electrónico" formControlName="correo" [class.is-invalid]="validar('correo')">
+            <small *ngIf="validar('correo')">Correo Necesario</small>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Usuario</label>
+        <div class="col">
+
+            <input class="form-control" type="text" placeholder="Ingrese usuario" formControlName="usuario" [class.is-invalid]="validar('usuario')">
+            <small *ngIf="validar('usuario')">Usuario ya existente o vacio</small>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Contraseña</label>
+        <div class="col">
+            <input class="form-control" type="password" placeholder="Contraseña" formControlName="pass1" [class.is-invalid]="validar('pass1')">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Repita Contraseña</label>
+        <div class="col">
+            <input class="form-control" type="password" placeholder="Repita Contraseña" formControlName="pass2" [class.is-invalid]="validar('pass2')">
+        </div>
+    </div>
+
+    <div class="form-group row" formGroupName="direccion">
+        <label class="col-2 col-form-label">Direccion</label>
+        <div class="form-row col">
+            <div class="col">
+                <input class="form-control" type="text" placeholder="Distrito" formControlName="distrito" [class.is-invalid]="validar('direccion.distrito')">
+
+            </div>
+            <div class="col">
+                <input class="form-control" type="text" placeholder="Ciudad" formControlName="ciudad" [class.is-invalid]="validar('direccion.ciudad')">
+
+            </div>
+        </div>
+    </div>
+
+    <div class=" row">
+        <div class="col">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Pasatiempo</th>
+                        <th>Acci&oacute;n</th>
+                    </tr>
+                </thead>
+                <tbody formArrayName="pasatiempos">
+                    <tr *ngFor="let c of pasatiempos.controls;let i = index">
+                        <td>{{i + 1 }}</td>
+                        <td>
+                            <input class="form-control" type="text" [formControlName]="i" /></td>
+                        <td>
+                            <button class="btn btn-danger" (click)="borrarPasatiempo(i)">Borrar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <button class="btn btn-primary mt-3 mb-5 btn-block" type="button" (click)="agregarPasatiempo()"> + Añadir</button>
+
+        </div>
+    </div>
+
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">&nbsp;</label>
+        <div class="input-group col-md-8">
+            <button type="submit" class="btn btn-outline-primary btn-block">
+        Guardar
+      </button>
+        </div>
+    </div>
+
+</form>
+
+<hr/>
+<pre>
+    Estado del formulario: {{forma.valid}}
+    <br/>
+    Status: {{forma.status}}
+</pre>
+<pre>
+    {{forma.value | json}}
+</pre>
